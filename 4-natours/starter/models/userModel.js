@@ -4,56 +4,50 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 
-const userSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: [true, 'Please tell us your name']
-    },
-    email: {
-      type: String,
-      required: [true, 'Please provide your name'],
-      unique: true,
-      lowercase: true,
-      validate: [validator.isEmail, 'Please provide a valid email']
-    },
-    photo: String,
-    role: {
-      type: String,
-      enum: ['user', 'guide', 'lead-guide', 'admin'],
-      default: 'user'
-    },
-    password: {
-      type: String,
-      require: [true, 'Please provide a password'],
-      minlength: 8,
-      select: false
-    },
-    passwordConfirm: {
-      type: String,
-      required: [true, 'Please confirm your password'],
-      validate: {
-        // this only works on .CREAT() or .SAVE()!!!
-        validator: function(val) {
-          return this.password === val;
-        },
-        message: 'Passwords are not the same'
-      }
-    },
-    passwordChangedAt: Date,
-    passwordResetToken: String,
-    passwordResetExpires: Date,
-    active: {
-      type: Boolean,
-      default: true,
-      select: false
+const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, 'Please tell us your name']
+  },
+  email: {
+    type: String,
+    required: [true, 'Please provide your name'],
+    unique: true,
+    lowercase: true,
+    validate: [validator.isEmail, 'Please provide a valid email']
+  },
+  photo: String,
+  role: {
+    type: String,
+    enum: ['user', 'guide', 'lead-guide', 'admin'],
+    default: 'user'
+  },
+  password: {
+    type: String,
+    require: [true, 'Please provide a password'],
+    minlength: 8,
+    select: false
+  },
+  passwordConfirm: {
+    type: String,
+    required: [true, 'Please confirm your password'],
+    validate: {
+      // this only works on .CREAT() or .SAVE()!!!
+      validator: function(val) {
+        return this.password === val;
+      },
+      message: 'Passwords are not the same'
     }
+  },
+  passwordChangedAt: Date,
+  passwordResetToken: String,
+  passwordResetExpires: Date,
+  active: {
+    type: Boolean,
+    default: true,
+    select: false
   }
-  // {
-  //   toJSON: { virtuals: true },
-  //   toObject: { virtuals: true }
-  // }
-);
+});
 
 userSchema.pre('save', async function(next) {
   // Only run this fuction if password is modified

@@ -9,14 +9,6 @@ const reviewSchema = new mongoose.Schema(
     review: {
       type: String,
       required: [true, 'Review cannot be empty!']
-      // maxlength: [
-      //   1000,
-      //   'A tour name must have less than or equal to 40 characters'
-      // ],
-      // minlength: [
-      //   2,
-      //   'A tour name must have greater than or equal to 5 characters'
-      // ]
     },
     rating: {
       type: Number,
