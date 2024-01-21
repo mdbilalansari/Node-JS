@@ -52,8 +52,10 @@ const reviews = JSON.parse(
   } catch (err) {
     console.log(err);
   } finally {
-    mongoose.connection.close(() => {
-      console.log('DB connection closed successfully');
-    });
+    setTimeout(() => {
+      mongoose.connection.close(() => {
+        console.log('DB connection closed successfully');
+      });
+    }, 3000);
   }
 })();

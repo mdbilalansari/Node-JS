@@ -1,5 +1,6 @@
-// type is 'success' or 'error'
+/* eslint-disable */
 
+// type is 'success' or 'error'
 export const hideAlert = function() {
   const el = document.querySelector('.alert');
   if (el) {
